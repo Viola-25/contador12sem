@@ -173,7 +173,7 @@
                 <div class="flex justify-between mt-1 text-[9px] text-indigo-200">
                     <span>06/07</span>
                     <span id="progress-percent">0%</span>
-                    <span>06/12</span>
+                    <span>22/11</span>
                 </div>
             </div>
         </div>
@@ -592,14 +592,12 @@
             fillCountdown(internshipEnd, 'intern');
             fillCountdown(semesterEnd, 'sem');
 
-            const diffSem = semesterEnd - now;
-            if (diffSem <= 0) {
+            const diffIntern = internshipEnd - now;
+            if (diffIntern <= 0) {
                 document.getElementById('semester-bar').style.width = "100%";
                 document.getElementById('progress-percent').innerText = "100%";
-                document.getElementById('status-pill').innerText = "Finalizado";
-                document.getElementById('status-pill').className = "bg-green-500 text-white border-green-600";
             } else {
-                const totalDuration = semesterEnd - semesterStart;
+                const totalDuration = internshipEnd - semesterStart;
                 let elapsed = now - semesterStart;
                 if (elapsed < 0) elapsed = 0;
                 let percent = (elapsed / totalDuration) * 100;
