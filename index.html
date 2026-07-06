@@ -178,6 +178,39 @@
             </div>
         </div>
 
+        <div class="mobile-card p-4 bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200 relative overflow-hidden">
+            <div class="absolute right-0 top-0 opacity-5 transform translate-x-4 -translate-y-4">
+                <i class="fa-solid fa-graduation-cap text-8xl text-amber-600"></i>
+            </div>
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+                <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wide">Semana Festiva da Formatura</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="bg-white/70 rounded-lg p-2.5 border border-amber-200 text-center">
+                    <span class="block text-[18px] font-extrabold text-amber-700">06/10</span>
+                    <span class="block text-[10px] text-amber-600 font-semibold">Colação de Grau</span>
+                </div>
+                <div class="bg-white/70 rounded-lg p-2.5 border border-amber-200 text-center">
+                    <span class="block text-[18px] font-extrabold text-amber-700">07/10</span>
+                    <span class="block text-[10px] text-amber-600 font-semibold">Culto Ecumênico</span>
+                </div>
+                <div class="bg-white/70 rounded-lg p-2.5 border border-amber-200 text-center">
+                    <span class="block text-[18px] font-extrabold text-amber-700">08/10</span>
+                    <span class="block text-[10px] text-amber-600 font-semibold">Jantar de Gala</span>
+                </div>
+                <div class="bg-white/70 rounded-lg p-2.5 border border-amber-200 text-center">
+                    <span class="block text-[18px] font-extrabold text-amber-700">10/10</span>
+                    <span class="block text-[10px] text-amber-600 font-semibold">Baile de Gala</span>
+                </div>
+            </div>
+            <div id="formatura-countdown" class="mt-3 bg-white/60 rounded-lg p-2 border border-amber-200 text-center">
+                <span class="text-[10px] text-amber-700 font-bold uppercase">Faltam</span>
+                <span id="formatura-days" class="text-lg font-extrabold text-amber-600 mono-font ml-1">0</span>
+                <span class="text-[10px] text-amber-700 font-bold">dias para a Colação</span>
+            </div>
+        </div>
+
         <div class="flex items-center gap-2 mb-3 mt-6 px-1">
             <i class="fa-solid fa-list-ul text-slate-400 text-sm"></i>
             <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Cronograma</h3>
@@ -592,6 +625,15 @@
 
             fillCountdown(internshipEnd, 'intern');
             fillCountdown(semesterEnd, 'sem');
+
+            const formaturaDate = new Date(2026, 9, 6, 19, 0, 0);
+            const diffFormatura = formaturaDate - now;
+            if (diffFormatura > 0) {
+                const d = Math.floor(diffFormatura / (1000 * 60 * 60 * 24));
+                document.getElementById('formatura-days').innerText = d;
+            } else {
+                document.getElementById('formatura-days').innerText = "0";
+            }
 
             const diffIntern = internshipEnd - now;
             if (diffIntern <= 0) {
