@@ -13,7 +13,7 @@
             --slate-50: #f8fafc;
             --slate-100: #f1f5f9;
             --slate-800: #1e293b;
-            --brand-primary: #4f46e5; /* Indigo 600 */
+            --brand-primary: #4f46e5;
         }
 
         body {
@@ -21,14 +21,13 @@
             background-color: var(--slate-50);
             color: var(--slate-800);
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 40px; /* Espaço para o fim do scroll */
+            padding-bottom: 40px;
         }
 
         .mono-font {
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Estilo dos Cards Mobile */
         .mobile-card {
             background-color: white;
             border-radius: 16px;
@@ -43,7 +42,6 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* Linha conectora da Timeline */
         .timeline-line {
             position: absolute;
             left: 24px;
@@ -58,7 +56,6 @@
             display: none;
         }
 
-        /* Pulso para o item ativo */
         @keyframes subtle-pulse {
             0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.2); }
             70% { box-shadow: 0 0 0 6px rgba(79, 70, 229, 0); }
@@ -69,7 +66,6 @@
             animation: subtle-pulse 2s infinite;
         }
 
-        /* Scrollbar Hide */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -78,7 +74,6 @@
             scrollbar-width: none;
         }
 
-        /* Calendar Styles */
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -97,12 +92,11 @@
 </head>
 <body class="bg-slate-50 min-h-screen">
 
-    <!-- Sticky Header -->
     <div class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 py-3 mb-4 shadow-sm">
         <div class="flex justify-between items-center max-w-lg mx-auto">
             <div>
-                <h1 class="text-lg font-bold text-slate-900 leading-tight">Internato - 11º Semestre</h1>
-                <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Rumo ao 12º Semestre</p>
+                <h1 class="text-lg font-bold text-slate-900 leading-tight">Internato - 12º Semestre</h1>
+                <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Último Semestre</p>
             </div>
             <div id="status-pill" class="px-2 py-1 rounded-full bg-slate-100 text-[10px] font-bold text-slate-500 border border-slate-200 uppercase">
                 Carregando
@@ -110,174 +104,225 @@
         </div>
     </div>
 
-    <!-- Container Principal -->
     <div class="px-4 max-w-lg mx-auto">
 
-        <!-- 1. CARD PRINCIPAL (Contagem + Dias Úteis) -->
         <div class="mobile-card p-5 highlight-card">
-            
-            <!-- Grid de Contagem -->
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Fim do Semestre: 19/06/26</h2>
-                <i class="fa-solid fa-flag-checkered text-indigo-400"></i>
+
+            <div class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Fim dos Estágios: 22/11/26</h2>
+                    <i class="fa-solid fa-stethoscope text-indigo-400"></i>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="intern-days" class="block text-2xl font-bold text-slate-800 tracking-tight leading-none">0</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Dias</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="intern-hours" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Hrs</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="intern-minutes" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Min</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="intern-seconds" class="block text-xl font-bold text-indigo-600 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Seg</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-4 gap-2 mb-5">
-                <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
-                    <span id="days" class="block text-2xl font-bold text-slate-800 tracking-tight leading-none">0</span>
-                    <span class="text-[9px] text-slate-400 uppercase font-bold">Dias</span>
+            <div class="mb-5">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Fim do Semestre: 06/12/26</h2>
+                    <i class="fa-solid fa-flag-checkered text-indigo-400"></i>
                 </div>
-                <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
-                    <span id="hours" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
-                    <span class="text-[9px] text-slate-400 uppercase font-bold">Hrs</span>
-                </div>
-                <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
-                    <span id="minutes" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
-                    <span class="text-[9px] text-slate-400 uppercase font-bold">Min</span>
-                </div>
-                <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
-                    <span id="seconds" class="block text-xl font-bold text-indigo-600 tracking-tight leading-none">00</span>
-                    <span class="text-[9px] text-slate-400 uppercase font-bold">Seg</span>
+                <div class="grid grid-cols-4 gap-2">
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="sem-days" class="block text-2xl font-bold text-slate-800 tracking-tight leading-none">0</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Dias</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="sem-hours" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Hrs</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="sem-minutes" class="block text-xl font-bold text-slate-700 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Min</span>
+                    </div>
+                    <div class="text-center bg-white rounded-xl py-2 border border-slate-100 shadow-sm">
+                        <span id="sem-seconds" class="block text-xl font-bold text-indigo-600 tracking-tight leading-none">00</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">Seg</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Foco em Dias Úteis -->
             <div class="bg-indigo-600 rounded-xl p-4 text-white shadow-lg shadow-indigo-200 relative overflow-hidden">
                 <div class="absolute right-0 top-0 opacity-10 transform translate-x-2 -translate-y-2">
                     <i class="fa-solid fa-calendar-check text-6xl"></i>
                 </div>
-                <p class="text-[10px] text-indigo-200 font-bold uppercase mb-1">Dias Úteis Reais (Total)</p>
+                <p class="text-[10px] text-indigo-200 font-bold uppercase mb-1">Dias Úteis de Estágio Restantes</p>
                 <div class="flex items-baseline gap-2">
                     <span id="total-remaining-workdays" class="text-4xl font-extrabold tracking-tighter mono-font">0</span>
-                    <span class="text-xs text-indigo-100 font-medium">dias de estágio</span>
+                    <span class="text-xs text-indigo-100 font-medium">dias</span>
                 </div>
                 <div class="mt-3 w-full bg-indigo-900/30 rounded-full h-1.5">
                     <div id="semester-bar" class="bg-white h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
                 </div>
                 <div class="flex justify-between mt-1 text-[9px] text-indigo-200">
-                    <span>Início</span>
+                    <span>06/07</span>
                     <span id="progress-percent">0%</span>
+                    <span>06/12</span>
                 </div>
             </div>
         </div>
 
-        <!-- 2. TÍTULO DO CRONOGRAMA -->
         <div class="flex items-center gap-2 mb-3 mt-6 px-1">
             <i class="fa-solid fa-list-ul text-slate-400 text-sm"></i>
             <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Cronograma</h3>
         </div>
 
-        <!-- 3. ITENS DA TIMELINE -->
-        <div id="timeline-container" class="space-y-0 relative">
-            <!-- Injetado via JS -->
-        </div>
+        <div id="timeline-container" class="space-y-0 relative"></div>
 
-        <!-- Rodapé -->
         <div class="text-center mt-8 mb-4">
             <p class="text-[10px] text-slate-400 max-w-xs mx-auto leading-relaxed">
-                *Cálculo considera finais de semana e feriados/suspensões livres para todos os rodízios.
+                *Cálculo considera finais de semana e feriados livres para todos os rodízios.
             </p>
         </div>
 
     </div>
 
-    <!-- LÓGICA JAVASCRIPT -->
     <script>
-        // --- CONFIGURAÇÃO ---
-        const semesterStart = new Date(2026, 0, 5, 7, 0, 0); // 05 Jan
-        const targetDate = new Date(2026, 5, 19, 12, 0, 0); // 19 Jun (Saída Efetiva)
+        const semesterStart = new Date(2026, 6, 6, 7, 0, 0);
+        const internshipEnd = new Date(2026, 10, 22, 12, 0, 0);
+        const semesterEnd = new Date(2026, 11, 6, 12, 0, 0);
 
-        // Feriados 2026 (SP/Nacionais) com Nomes
         const holidays2026 = {
-            "2026-02-16": "Carnaval",
-            "2026-02-17": "Carnaval",
-            "2026-02-18": "Carnaval",
-            "2026-04-03": "Paixão de Cristo",
-            "2026-04-21": "Tiradentes",
-            "2026-05-01": "Dia do Trabalho",
-            "2026-06-04": "Corpus Christi"
+            "2026-07-09": "Revolução Constitucionalista",
+            "2026-09-07": "Independência",
+            "2026-10-12": "N. Sra. Aparecida",
+            "2026-11-02": "Finados",
+            "2026-11-20": "Consciência Negra"
         };
 
-        // Definição dos Rodízios
         const rotations = [
             {
-                id: "ubs",
-                title: "UBS Pq. Novo Sto Amaro",
-                shortTitle: "UBS Novo Sto Amaro",
-                desc: "Atenção Básica",
-                icon: "fa-house-medical",
-                start: new Date(2026, 0, 5),   
-                end: new Date(2026, 2, 29),
-                holidaysOff: true 
+                id: "sapopemba",
+                title: "Hospital Estadual de Sapopemba",
+                shortTitle: "H.E. Sapopemba",
+                desc: "Clínica Médica",
+                icon: "fa-stethoscope",
+                start: new Date(2026, 6, 6),
+                end: new Date(2026, 6, 19),
+                holidaysOff: false
             },
             {
-                id: "ama",
-                title: "AMA Pq. Santo Antônio",
-                shortTitle: "AMA Sto Antônio",
+                id: "upa_jd_angela",
+                title: "UPA Jardim Ângela | Hospital da Mulher",
+                shortTitle: "UPA Jd. Ângela",
                 desc: "Urgência",
-                icon: "fa-star-of-life",
-                start: new Date(2026, 2, 30),  
-                end: new Date(2026, 3, 26),
-                holidaysOff: true 
-            },
-            {
-                id: "ibcc_onc",
-                title: "IBCC - Oncologia",
-                shortTitle: "IBCC Onco",
-                desc: "Especialidade",
-                icon: "fa-ribbon",
-                start: new Date(2026, 3, 27),  
-                end: new Date(2026, 4, 10),
-                holidaysOff: true
-            },
-            {
-                id: "ibcc_ger",
-                title: "IBCC - Geriatria",
-                shortTitle: "IBCC Geriatria",
-                desc: "Especialidade",
-                icon: "fa-person-cane",
-                start: new Date(2026, 4, 11),  
-                end: new Date(2026, 4, 17),
-                holidaysOff: true
-            },
-            {
-                id: "sao_camilo",
-                title: "São Camilo Ipiranga",
-                shortTitle: "S. Camilo Ipiranga",
-                desc: "Geriatria",
                 icon: "fa-hospital-user",
-                start: new Date(2026, 4, 18),  
-                end: new Date(2026, 4, 24),
-                holidaysOff: true
+                start: new Date(2026, 6, 20),
+                end: new Date(2026, 7, 2),
+                holidaysOff: false
             },
             {
-                id: "carapicuiba",
-                title: "H.G. Carapicuíba",
-                shortTitle: "HG Carapicuíba",
-                desc: "Psiquiatria",
-                icon: "fa-brain",
-                start: new Date(2026, 4, 25),  
-                end: new Date(2026, 5, 7),
-                holidaysOff: true
+                id: "itapevi",
+                title: "Hospital Geral de Itapevi",
+                shortTitle: "H.G. Itapevi",
+                desc: "Ortopedia",
+                icon: "fa-bone",
+                start: new Date(2026, 7, 3),
+                end: new Date(2026, 7, 16),
+                holidaysOff: false
             },
             {
-                id: "promove",
-                title: "PROMOVE - Psiquiatria",
-                shortTitle: "PROMOVE Psiq",
-                desc: "Reta Final",
-                icon: "fa-puzzle-piece",
-                start: new Date(2026, 5, 8),   
-                end: new Date(2026, 5, 21), 
-                effectiveEnd: new Date(2026, 5, 19), 
-                holidaysOff: true
+                id: "candido_fontoura",
+                title: "Hospital Infantil Cândido Fontoura",
+                shortTitle: "H.I. Cândido Fontoura",
+                desc: "Pediatria",
+                icon: "fa-child",
+                start: new Date(2026, 7, 17),
+                end: new Date(2026, 7, 30),
+                holidaysOff: false
+            },
+            {
+                id: "sao_camilo_ibcc",
+                title: "Hospital São Camilo Santana | IBCC",
+                shortTitle: "S. Camilo | IBCC",
+                desc: "Anestesiologia",
+                icon: "fa-syringe",
+                start: new Date(2026, 7, 31),
+                end: new Date(2026, 8, 13),
+                holidaysOff: false
+            },
+            {
+                id: "h_mulher_uti",
+                title: "Hospital da Mulher",
+                shortTitle: "H. da Mulher",
+                desc: "UTI Adulto",
+                icon: "fa-heart-pulse",
+                start: new Date(2026, 8, 14),
+                end: new Date(2026, 8, 27),
+                holidaysOff: false
+            },
+            {
+                id: "optativo1",
+                title: "Optativo",
+                shortTitle: "Optativo I",
+                desc: "Optativo",
+                icon: "fa-arrows-rotate",
+                start: new Date(2026, 8, 28),
+                end: new Date(2026, 9, 11),
+                holidaysOff: false
+            },
+            {
+                id: "optativo2",
+                title: "Optativo",
+                shortTitle: "Optativo II",
+                desc: "Optativo",
+                icon: "fa-book",
+                start: new Date(2026, 9, 12),
+                end: new Date(2026, 9, 25),
+                holidaysOff: false
+            },
+            {
+                id: "pedreira1",
+                title: "Hospital Geral de Pedreira",
+                shortTitle: "H.G. Pedreira I",
+                desc: "Cirurgia Geral",
+                icon: "fa-scalpel",
+                start: new Date(2026, 9, 26),
+                end: new Date(2026, 10, 8),
+                holidaysOff: false
+            },
+            {
+                id: "pedreira2",
+                title: "Hospital Geral de Pedreira",
+                shortTitle: "H.G. Pedreira II",
+                desc: "Cirurgia Geral",
+                icon: "fa-scalpel",
+                start: new Date(2026, 10, 9),
+                end: new Date(2026, 10, 22),
+                holidaysOff: false
+            },
+            {
+                id: "atividades_formativas",
+                title: "Atividades Obrigatórias Teórico-Práticas",
+                shortTitle: "Ativ. Formativas",
+                desc: "Revisão, OSCE e Simulação",
+                icon: "fa-graduation-cap",
+                start: new Date(2026, 10, 23),
+                end: new Date(2026, 11, 6),
+                holidaysOff: false,
+                isInternship: false
             }
         ];
 
-        // --- LÓGICA DE CÁLCULO ---
-
         function isWeekend(date) {
             const day = date.getDay();
-            return day === 0 || day === 6; 
+            return day === 0 || day === 6;
         }
 
         function getHolidayName(date) {
@@ -302,12 +347,9 @@
             while (curDate <= stopDate) {
                 const isWknd = isWeekend(curDate);
                 const isHol = isHoliday(curDate);
-                
-                // Regra: Sempre folga fds. Feriado só folga se respectHolidays = true.
                 let isWorkDay = true;
                 if (isWknd) isWorkDay = false;
                 else if (respectHolidays && isHol) isWorkDay = false;
-
                 if (isWorkDay) count++;
                 curDate.setDate(curDate.getDate() + 1);
             }
@@ -318,28 +360,21 @@
             return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
         }
 
-        // --- CALENDAR GENERATION ---
-
         function renderMonth(year, month, rot) {
             const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
-            const startDayOfWeek = firstDay.getDay(); // 0 = Domingo
+            const startDayOfWeek = firstDay.getDay();
             const daysInMonth = lastDay.getDate();
 
             let html = `<div class="bg-slate-50 rounded-lg p-2 border border-slate-100">`;
             html += `<div class="text-[10px] font-bold text-slate-600 mb-1 text-center">${monthNames[month]}</div>`;
-            
-            // Header Dias
             html += `<div class="cal-grid mb-1 opacity-50">`;
             const weekDays = ['D','S','T','Q','Q','S','S'];
             weekDays.forEach(d => html += `<div class="text-[8px] text-center">${d}</div>`);
             html += `</div>`;
-
-            // Grid Dias
             html += `<div class="cal-grid">`;
 
-            // Empty slots
             for (let i = 0; i < startDayOfWeek; i++) {
                 html += `<div></div>`;
             }
@@ -348,23 +383,18 @@
                 const current = new Date(year, month, d);
                 const isWknd = isWeekend(current);
                 const holidayName = getHolidayName(current);
-                
-                let inRotation = current >= rot.start && current <= (rot.effectiveEnd || rot.end);
-                
-                let bgClass = "bg-transparent text-slate-300"; // Default: fora do range ou fds
-                let isWorkDay = false;
+                let inRotation = current >= rot.start && current <= rot.end;
+                let bgClass = "bg-transparent text-slate-300";
                 let titleAttr = "";
 
                 if (inRotation) {
                     if (isWknd) {
                         bgClass = "bg-slate-100 text-slate-300";
-                    } else if (rot.holidaysOff && holidayName) {
-                        bgClass = "bg-orange-100 text-orange-600 font-bold border border-orange-200 cursor-help"; // Feriado
+                    } else if (holidayName) {
+                        bgClass = "bg-indigo-100 text-indigo-700 font-bold border-b-2 border-orange-300 cursor-help";
                         titleAttr = `title="${holidayName}"`;
                     } else {
-                        // Dia Útil
                         bgClass = "bg-indigo-100 text-indigo-700 font-bold";
-                        isWorkDay = true;
                     }
                 } else {
                     bgClass = "opacity-20 text-slate-300";
@@ -378,26 +408,21 @@
 
         function generateCalendar(rot) {
             const s = new Date(rot.start);
-            const e = new Date(rot.effectiveEnd || rot.end);
-            
+            const e = new Date(rot.end);
             let html = `<div class="mt-4 border-t border-slate-100 pt-3">
                 <p class="text-[9px] text-slate-400 mb-2 uppercase font-bold tracking-wider">Dias Considerados</p>
                 <div class="grid grid-cols-2 gap-2">`;
 
             let curYear = s.getFullYear();
             let curMonth = s.getMonth();
-            
-            // Loop de meses
             const endYear = e.getFullYear();
             const endMonth = e.getMonth();
-            
-            // Coletar Feriados do período para listar
+
             const presentHolidays = new Set();
             let tempDate = new Date(s);
             while (tempDate <= e) {
                 const hName = getHolidayName(tempDate);
-                if (hName && rot.holidaysOff) {
-                    // Formata dia/mês
+                if (hName) {
                     const dStr = tempDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
                     presentHolidays.add(`${hName} (${dStr})`);
                 }
@@ -412,20 +437,19 @@
                     curYear++;
                 }
             }
-            
+
             html += `</div>`;
 
-            // Legenda e Lista de Feriados
             html += `<div class="mt-2 space-y-2">
                 <div class="flex gap-3 justify-center">
                     <div class="flex items-center gap-1"><div class="w-2 h-2 bg-indigo-100 rounded"></div><span class="text-[8px] text-slate-400">Dia Útil</span></div>
-                    <div class="flex items-center gap-1"><div class="w-2 h-2 bg-orange-100 rounded"></div><span class="text-[8px] text-slate-400">Feriado/Susp.</span></div>
+                    <div class="flex items-center gap-1"><div class="w-2 h-2 bg-indigo-100 rounded border-b-2 border-orange-300"></div><span class="text-[8px] text-slate-400">Feriado</span></div>
                     <div class="flex items-center gap-1"><div class="w-2 h-2 bg-slate-100 rounded"></div><span class="text-[8px] text-slate-400">Fim de Semana</span></div>
                 </div>`;
-            
+
             if (presentHolidays.size > 0) {
                 html += `<div class="bg-orange-50 rounded-lg p-2 border border-orange-100 text-center">
-                    <span class="text-[9px] text-orange-800 font-bold block mb-1">Feriados neste período:</span>
+                    <span class="text-[9px] text-orange-800 font-bold block mb-1">Feriados no período (dias úteis):</span>
                     <p class="text-[9px] text-orange-600 leading-tight">${Array.from(presentHolidays).join(', ')}</p>
                 </div>`;
             }
@@ -434,44 +458,39 @@
             return html;
         }
 
-        // --- RENDERIZAÇÃO DA TIMELINE ---
-
         function renderTimeline(now) {
             const container = document.getElementById('timeline-container');
-            container.innerHTML = ''; 
+            container.innerHTML = '';
 
             let globalRemainingWorkDays = 0;
 
-            rotations.forEach((rot, index) => {
-                const effectiveEndDate = rot.effectiveEnd ? rot.effectiveEnd : rot.end;
-                const totalWorkDays = countBusinessDays(rot.start, effectiveEndDate, rot.holidaysOff);
+            rotations.forEach((rot) => {
+                const isInternship = rot.isInternship !== false;
+                const totalWorkDays = countBusinessDays(rot.start, rot.end, rot.holidaysOff);
 
-                // Cálculo de dias restantes (Lógica Simplificada)
                 let remainingWorkDays = 0;
                 if (now < rot.start) {
                     remainingWorkDays = totalWorkDays;
-                } else if (now > effectiveEndDate) {
+                } else if (now > rot.end) {
                     remainingWorkDays = 0;
                 } else {
-                    // Estamos no meio. Conta de amanhã até o fim.
                     const tomorrow = new Date(now);
                     tomorrow.setDate(tomorrow.getDate() + 1);
-                    if (tomorrow <= effectiveEndDate) {
-                        remainingWorkDays = countBusinessDays(tomorrow, effectiveEndDate, rot.holidaysOff);
+                    if (tomorrow <= rot.end) {
+                        remainingWorkDays = countBusinessDays(tomorrow, rot.end, rot.holidaysOff);
                     }
                 }
-                globalRemainingWorkDays += remainingWorkDays;
+                if (isInternship) {
+                    globalRemainingWorkDays += remainingWorkDays;
+                }
 
-                // Status
                 const isActive = now >= rot.start && now <= new Date(rot.end.getTime() + 86399000);
                 const isPast = now > new Date(rot.end.getTime() + 86399000);
 
-                // Estilos
                 let dotColor = "bg-slate-300 border-white";
                 let cardBg = "bg-white";
                 let textColor = "text-slate-700";
                 let iconColor = "text-slate-300";
-                let activeRing = "";
                 let opacity = "opacity-100";
                 let statusLabel = "";
 
@@ -481,8 +500,7 @@
                     textColor = "text-indigo-900 font-bold";
                     iconColor = "text-indigo-500";
                     statusLabel = `<span class="absolute top-3 right-3 bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-1 rounded-full uppercase">Atual</span>`;
-                    
-                    // Atualiza status topo
+
                     const pill = document.getElementById('status-pill');
                     pill.innerText = "Em Andamento";
                     pill.className = "px-2 py-1 rounded-full bg-green-100 text-[10px] font-bold text-green-700 border border-green-200 uppercase animate-pulse";
@@ -492,42 +510,37 @@
                     textColor = "text-slate-500 line-through decoration-slate-300";
                 }
 
-                // Badge de Feriado
-                const holBadge = rot.holidaysOff 
-                    ? `<span class="text-[9px] bg-green-50 text-green-700 px-1.5 rounded border border-green-100 ml-1">Feriado OFF</span>` 
+                const holBadge = rot.holidaysOff
+                    ? `<span class="text-[9px] bg-green-50 text-green-700 px-1.5 rounded border border-green-100 ml-1">Feriado OFF</span>`
                     : ``;
-                
-                // Gera Calendário
+
+                const noInternshipBadge = !isInternship
+                    ? `<span class="text-[9px] bg-amber-50 text-amber-700 px-1.5 rounded border border-amber-100 ml-1">Não conta como estágio</span>`
+                    : ``;
+
                 const calendarHtml = generateCalendar(rot);
 
-                // HTML Structure
                 const html = `
                 <div class="timeline-item relative pl-12 pb-2 ${opacity}">
                     <div class="timeline-line"></div>
-                    
-                    <!-- Ícone/Dot -->
-                    <div class="absolute left-3 top-4 w-6 h-6 rounded-full flex items-center justify-center bg-white z-10 border-2 ${dotColor.replace('bg-', 'border-')} box-content">
-                         <div class="w-2.5 h-2.5 rounded-full ${dotColor}"></div>
+                    <div class="absolute left-3 top-4 w-6 h-6 rounded-full flex items-center justify-center bg-white z-10 border-2 ${(!isInternship ? 'border-amber-300' : dotColor.replace('bg-', 'border-'))} box-content">
+                         <div class="w-2.5 h-2.5 rounded-full ${!isInternship ? 'bg-amber-400' : dotColor}"></div>
                     </div>
-
-                    <!-- Conteúdo Card -->
-                    <div class="mobile-card p-4 ${cardBg} relative">
+                    <div class="mobile-card p-4 ${!isInternship ? 'bg-amber-50/30 border-amber-100' : cardBg} relative">
                         ${statusLabel}
-                        
                         <div class="flex items-start gap-3 mb-2">
                             <div class="mt-1 w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid ${rot.icon} ${iconColor} text-sm"></i>
+                                <i class="fa-solid ${rot.icon} ${!isInternship ? 'text-amber-500' : iconColor} text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm ${textColor} leading-tight">${rot.shortTitle}</h4>
+                                <h4 class="text-sm ${!isInternship ? 'text-amber-800' : textColor} leading-tight">${rot.shortTitle}</h4>
                                 <div class="flex flex-wrap gap-1 mt-1">
                                     <span class="text-[10px] text-slate-400 bg-slate-50 px-1.5 rounded border border-slate-100">${formatDateShort(rot.start)} - ${formatDateShort(rot.end)}</span>
                                     ${holBadge}
+                                    ${noInternshipBadge}
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Mini Stats Grid -->
                         <div class="grid grid-cols-2 gap-2 mt-3">
                             <div class="bg-white/60 p-2 rounded border border-slate-100 text-center">
                                 <span class="block text-[9px] text-slate-400 uppercase font-semibold">Total Dias Úteis</span>
@@ -538,57 +551,55 @@
                                 <span class="block text-sm font-bold ${remainingWorkDays > 0 ? 'text-indigo-600' : 'text-green-600'}">${remainingWorkDays}</span>
                             </div>
                         </div>
-                        
-                        <!-- Mini Calendar -->
                         ${calendarHtml}
-
                     </div>
                 </div>`;
-                
+
                 container.innerHTML += html;
             });
 
             document.getElementById('total-remaining-workdays').innerText = globalRemainingWorkDays;
         }
 
-        // --- UPDATE LOOP ---
-
         function updateAll() {
             const now = new Date();
 
-            // Checagem pré-início
             if (now < semesterStart) {
                 const pill = document.getElementById('status-pill');
                 pill.innerText = "Aguardando Início";
                 pill.className = "px-2 py-1 rounded-full bg-yellow-100 text-[10px] font-bold text-yellow-700 border border-yellow-200 uppercase";
             }
 
-            // Lógica Contagem
-            const diff = targetDate - now;
-            if (diff <= 0) {
-                // Done State
-                document.getElementById('days').innerText = "0";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
-                document.getElementById('total-remaining-workdays').innerText = "0";
+            function fillCountdown(targetDate, prefix) {
+                const diff = targetDate - now;
+                if (diff <= 0) {
+                    document.getElementById(`${prefix}-days`).innerText = "0";
+                    document.getElementById(`${prefix}-hours`).innerText = "00";
+                    document.getElementById(`${prefix}-minutes`).innerText = "00";
+                    document.getElementById(`${prefix}-seconds`).innerText = "00";
+                } else {
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    document.getElementById(`${prefix}-days`).innerText = d;
+                    document.getElementById(`${prefix}-hours`).innerText = String(h).padStart(2, '0');
+                    document.getElementById(`${prefix}-minutes`).innerText = String(m).padStart(2, '0');
+                    document.getElementById(`${prefix}-seconds`).innerText = String(s).padStart(2, '0');
+                }
+            }
+
+            fillCountdown(internshipEnd, 'intern');
+            fillCountdown(semesterEnd, 'sem');
+
+            const diffSem = semesterEnd - now;
+            if (diffSem <= 0) {
                 document.getElementById('semester-bar').style.width = "100%";
                 document.getElementById('progress-percent').innerText = "100%";
                 document.getElementById('status-pill').innerText = "Finalizado";
                 document.getElementById('status-pill').className = "bg-green-500 text-white border-green-600";
             } else {
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerText = d;
-                document.getElementById('hours').innerText = String(h).padStart(2, '0');
-                document.getElementById('minutes').innerText = String(m).padStart(2, '0');
-                document.getElementById('seconds').innerText = String(s).padStart(2, '0');
-
-                // Barra
-                const totalDuration = targetDate - semesterStart;
+                const totalDuration = semesterEnd - semesterStart;
                 let elapsed = now - semesterStart;
                 if (elapsed < 0) elapsed = 0;
                 let percent = (elapsed / totalDuration) * 100;
@@ -600,10 +611,8 @@
             renderTimeline(now);
         }
 
-        // Init
         setInterval(updateAll, 1000);
         updateAll();
-
     </script>
 </body>
 </html>
