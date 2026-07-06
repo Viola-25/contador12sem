@@ -6,6 +6,7 @@
     <title>Internato Mobile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
@@ -106,6 +107,7 @@
 
     <div class="px-4 max-w-lg mx-auto">
 
+        <div id="stories-content">
         <div class="mobile-card p-5 highlight-card">
 
             <div class="mb-3">
@@ -210,6 +212,11 @@
                 <span class="text-[10px] text-amber-700 font-bold">dias para a Colação</span>
             </div>
         </div>
+        </div>
+
+        <button id="btn-stories" onclick="downloadStories()" class="w-full mb-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold shadow-lg shadow-purple-200 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-150 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-download"></i> Baixar PNG para Stories
+        </button>
 
         <div class="flex items-center gap-2 mb-3 mt-6 px-1">
             <i class="fa-solid fa-list-ul text-slate-400 text-sm"></i>
@@ -650,6 +657,29 @@
             }
 
             renderTimeline(now);
+        }
+
+        async function downloadStories() {
+            const btn = document.getElementById('btn-stories');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando...';
+            try {
+                const el = document.getElementById('stories-content');
+                const canvas = await html2canvas(el, {
+                    scale: 2,
+                    backgroundColor: '#f8fafc',
+                    useCORS: true,
+                    logging: false
+                });
+                const link = document.createElement('a');
+                link.download = 'internato-12sem.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (e) {
+                alert('Erro ao gerar imagem. Tente novamente.');
+            }
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-download"></i> Baixar PNG para Stories';
         }
 
         setInterval(updateAll, 1000);
