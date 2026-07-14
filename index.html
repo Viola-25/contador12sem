@@ -283,6 +283,13 @@
 
     </div>
 
+    <button id="fab-scroll-active" class="fab fab-active" title="Ir para rodízio atual">
+        <i class="fa-solid fa-crosshairs"></i>
+    </button>
+    <button id="fab-scroll-top" class="fab fab-top" title="Voltar ao topo">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <script>
         const semesterStart = new Date(2026, 6, 6, 7, 0, 0);
         const internshipEnd = new Date(2026, 10, 22, 12, 0, 0);
@@ -836,12 +843,5 @@
             fabTop.classList.toggle('visible', window.scrollY > 400);
         }, { passive: true });
     </script>
-
-    <button id="fab-scroll-active" class="fab fab-active" title="Ir para rodízio atual">
-        <i class="fa-solid fa-crosshairs"></i>
-    </button>
-    <button id="fab-scroll-top" class="fab fab-top" title="Voltar ao topo">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
 </body>
 </html>
