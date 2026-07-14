@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Internato - 12° Semestre</title>
+    <meta property="og:title" content="Internato - 12º Semestre">
+    <meta property="og:description" content="Cronograma e contagem regressiva do internato do 12º semestre de Medicina.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
         :root {
             --slate-50: #f8fafc;
@@ -180,6 +186,28 @@
             </div>
         </div>
 
+        <div class="mobile-card p-4">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-clock text-indigo-400 text-sm"></i>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Outras Formas de Ver</h3>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 text-center">
+                    <span id="remaining-weeks" class="block text-2xl font-extrabold text-slate-800 mono-font leading-none">0</span>
+                    <span id="remaining-weeksdays" class="block text-[10px] text-slate-500 font-semibold mt-1">semanas</span>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 text-center">
+                    <span id="remaining-monthdays" class="block text-lg font-extrabold text-slate-800 mono-font leading-none">0m 0d</span>
+                    <span class="block text-[10px] text-slate-500 font-semibold mt-1">meses e dias</span>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 text-center">
+                    <span id="remaining-hours" class="block text-2xl font-extrabold text-slate-800 mono-font leading-none">0</span>
+                    <span class="block text-[10px] text-slate-500 font-semibold mt-1">horas</span>
+                </div>
+            </div>
+            <p class="text-[9px] text-slate-400 text-center mt-2">*Horas considerando 8h/dia de estágio</p>
+        </div>
+
         <div class="mobile-card p-4 bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200 relative overflow-hidden">
             <div class="absolute right-0 top-0 opacity-5 transform translate-x-4 -translate-y-4">
                 <i class="fa-solid fa-graduation-cap text-8xl text-amber-600"></i>
@@ -237,6 +265,7 @@
         const semesterStart = new Date(2026, 6, 6, 7, 0, 0);
         const internshipEnd = new Date(2026, 10, 22, 12, 0, 0);
         const semesterEnd = new Date(2026, 11, 6, 12, 0, 0);
+        const formaturaDate = new Date(2026, 9, 6, 19, 0, 0);
 
         const holidays2026 = {
             "2026-07-09": "Revolução Constitucionalista",
@@ -360,17 +389,19 @@
             }
         ];
 
+        const bizDayCache = new Map();
+
+        function dateKey(d) {
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
         function isWeekend(date) {
             const day = date.getDay();
             return day === 0 || day === 6;
         }
 
         function getHolidayName(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const key = `${year}-${month}-${day}`;
-            return holidays2026[key];
+            return holidays2026[dateKey(date)];
         }
 
         function isHoliday(date) {
@@ -378,6 +409,9 @@
         }
 
         function countBusinessDays(startDate, endDate, respectHolidays) {
+            const key = `${dateKey(startDate)}|${dateKey(endDate)}|${respectHolidays ? 1 : 0}`;
+            if (bizDayCache.has(key)) return bizDayCache.get(key);
+
             let count = 0;
             let curDate = new Date(startDate);
             curDate.setHours(0,0,0,0);
@@ -393,6 +427,7 @@
                 if (isWorkDay) count++;
                 curDate.setDate(curDate.getDate() + 1);
             }
+            bizDayCache.set(key, count);
             return count;
         }
 
@@ -400,8 +435,53 @@
             return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
         }
 
+        const dom = {
+            statusPill: document.getElementById('status-pill'),
+            totalRemaining: document.getElementById('total-remaining-workdays'),
+            semesterBar: document.getElementById('semester-bar'),
+            progressPercent: document.getElementById('progress-percent'),
+            formaturaDays: document.getElementById('formatura-days'),
+            timeline: document.getElementById('timeline-container'),
+            internDays: document.getElementById('intern-days'),
+            internHours: document.getElementById('intern-hours'),
+            internMinutes: document.getElementById('intern-minutes'),
+            internSeconds: document.getElementById('intern-seconds'),
+            semDays: document.getElementById('sem-days'),
+            semHours: document.getElementById('sem-hours'),
+            semMinutes: document.getElementById('sem-minutes'),
+            semSeconds: document.getElementById('sem-seconds'),
+            remainingWeeks: document.getElementById('remaining-weeks'),
+            remainingWeeksDays: document.getElementById('remaining-weeksdays'),
+            remainingMonthDays: document.getElementById('remaining-monthdays'),
+            remainingHours: document.getElementById('remaining-hours')
+        };
+
+        function fillCountdown(targetDate, prefix) {
+            const diff = targetDate - new Date();
+            const daysEl = prefix === 'intern' ? dom.internDays : dom.semDays;
+            const hoursEl = prefix === 'intern' ? dom.internHours : dom.semHours;
+            const minutesEl = prefix === 'intern' ? dom.internMinutes : dom.semMinutes;
+            const secondsEl = prefix === 'intern' ? dom.internSeconds : dom.semSeconds;
+
+            if (diff <= 0) {
+                daysEl.innerText = "0";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
+            } else {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                daysEl.innerText = d;
+                hoursEl.innerText = String(h).padStart(2, '0');
+                minutesEl.innerText = String(m).padStart(2, '0');
+                secondsEl.innerText = String(s).padStart(2, '0');
+            }
+        }
+
         function renderMonth(year, month, rot) {
-            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            const monthNames = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const startDayOfWeek = firstDay.getDay();
@@ -499,10 +579,8 @@
         }
 
         function renderTimeline(now) {
-            const container = document.getElementById('timeline-container');
-            container.innerHTML = '';
-
             let globalRemainingWorkDays = 0;
+            let htmlParts = [];
 
             rotations.forEach((rot) => {
                 const isInternship = rot.isInternship !== false;
@@ -524,8 +602,9 @@
                     globalRemainingWorkDays += remainingWorkDays;
                 }
 
-                const isActive = now >= rot.start && now <= new Date(rot.end.getTime() + 86399000);
-                const isPast = now > new Date(rot.end.getTime() + 86399000);
+                const endOfDay = new Date(rot.end.getTime() + 86399000);
+                const isActive = now >= rot.start && now <= endOfDay;
+                const isPast = now > endOfDay;
 
                 let dotColor = "bg-slate-300 border-white";
                 let cardBg = "bg-white";
@@ -541,9 +620,8 @@
                     iconColor = "text-indigo-500";
                     statusLabel = `<span class="absolute top-3 right-3 bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-1 rounded-full uppercase">Atual</span>`;
 
-                    const pill = document.getElementById('status-pill');
-                    pill.innerText = "Em Andamento";
-                    pill.className = "px-2 py-1 rounded-full bg-green-100 text-[10px] font-bold text-green-700 border border-green-200 uppercase animate-pulse";
+                    dom.statusPill.innerText = "Em Andamento";
+                    dom.statusPill.className = "px-2 py-1 rounded-full bg-green-100 text-[10px] font-bold text-green-700 border border-green-200 uppercase animate-pulse";
                 } else if (isPast) {
                     dotColor = "bg-green-500 border-green-100";
                     opacity = "opacity-60 grayscale-[50%]";
@@ -560,7 +638,7 @@
 
                 const calendarHtml = generateCalendar(rot);
 
-                const html = `
+                htmlParts.push(`
                 <div class="timeline-item relative pl-12 pb-2 ${opacity}">
                     <div class="timeline-line"></div>
                     <div class="absolute left-3 top-4 w-6 h-6 rounded-full flex items-center justify-center bg-white z-10 border-2 ${(!isInternship ? 'border-amber-300' : dotColor.replace('bg-', 'border-'))} box-content">
@@ -594,69 +672,79 @@
                         </div>
                         ${calendarHtml}
                     </div>
-                </div>`;
-
-                container.innerHTML += html;
+                </div>`);
             });
 
-            document.getElementById('total-remaining-workdays').innerText = globalRemainingWorkDays;
+            dom.timeline.innerHTML = htmlParts.join('');
+            dom.totalRemaining.innerText = globalRemainingWorkDays;
         }
 
-        function updateAll() {
-            const now = new Date();
-
-            if (now < semesterStart) {
-                const pill = document.getElementById('status-pill');
-                pill.innerText = "Aguardando Início";
-                pill.className = "px-2 py-1 rounded-full bg-yellow-100 text-[10px] font-bold text-yellow-700 border border-yellow-200 uppercase";
-            }
-
-            function fillCountdown(targetDate, prefix) {
-                const diff = targetDate - now;
-                if (diff <= 0) {
-                    document.getElementById(`${prefix}-days`).innerText = "0";
-                    document.getElementById(`${prefix}-hours`).innerText = "00";
-                    document.getElementById(`${prefix}-minutes`).innerText = "00";
-                    document.getElementById(`${prefix}-seconds`).innerText = "00";
-                } else {
-                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((diff % (1000 * 60)) / 1000);
-                    document.getElementById(`${prefix}-days`).innerText = d;
-                    document.getElementById(`${prefix}-hours`).innerText = String(h).padStart(2, '0');
-                    document.getElementById(`${prefix}-minutes`).innerText = String(m).padStart(2, '0');
-                    document.getElementById(`${prefix}-seconds`).innerText = String(s).padStart(2, '0');
-                }
-            }
-
+        function updateCountdowns() {
             fillCountdown(internshipEnd, 'intern');
             fillCountdown(semesterEnd, 'sem');
 
-            const formaturaDate = new Date(2026, 9, 6, 19, 0, 0);
-            const diffFormatura = formaturaDate - now;
-            if (diffFormatura > 0) {
-                const d = Math.floor(diffFormatura / (1000 * 60 * 60 * 24));
-                document.getElementById('formatura-days').innerText = d;
-            } else {
-                document.getElementById('formatura-days').innerText = "0";
-            }
+            const diffFormatura = formaturaDate - new Date();
+            dom.formaturaDays.innerText = diffFormatura > 0 ? Math.floor(diffFormatura / (1000 * 60 * 60 * 24)) : "0";
 
-            const diffIntern = internshipEnd - now;
+            const diffIntern = internshipEnd - new Date();
             if (diffIntern <= 0) {
-                document.getElementById('semester-bar').style.width = "100%";
-                document.getElementById('progress-percent').innerText = "100%";
+                dom.semesterBar.style.width = "100%";
+                dom.progressPercent.innerText = "100%";
             } else {
                 const totalDuration = internshipEnd - semesterStart;
-                let elapsed = now - semesterStart;
+                let elapsed = new Date() - semesterStart;
                 if (elapsed < 0) elapsed = 0;
                 let percent = (elapsed / totalDuration) * 100;
                 if (percent > 100) percent = 100;
-                document.getElementById('semester-bar').style.width = `${percent}%`;
-                document.getElementById('progress-percent').innerText = `${percent.toFixed(1)}%`;
+                dom.semesterBar.style.width = `${percent}%`;
+                dom.progressPercent.innerText = `${percent.toFixed(1)}%`;
+            }
+        }
+
+        function updateAlternativeCounts() {
+            const now = new Date();
+            const diff = internshipEnd - now;
+
+            if (diff <= 0) {
+                dom.remainingWeeks.innerText = "0";
+                dom.remainingWeeksDays.innerText = "semanas";
+                dom.remainingMonthDays.innerText = "0m 0d";
+                dom.remainingHours.innerText = "0";
+                return;
             }
 
-            renderTimeline(now);
+            const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(totalDays / 7);
+            const days = totalDays % 7;
+            dom.remainingWeeks.innerText = weeks;
+            dom.remainingWeeksDays.innerText = days > 0 ? `${days}d restantes` : `restantes`;
+
+            const months = Math.floor(totalDays / 30);
+            const monthDays = totalDays % 30;
+            dom.remainingMonthDays.innerText = `${months}m ${monthDays}d`;
+
+            const workHoursLeft = countBusinessDays(now, internshipEnd, false) * 8;
+            dom.remainingHours.innerText = workHoursLeft.toLocaleString('pt-BR');
+        }
+
+        let lastTimelineDay = '';
+
+        function updateAll() {
+            const now = new Date();
+            const todayKey = dateKey(now);
+
+            if (now < semesterStart) {
+                dom.statusPill.innerText = "Aguardando Início";
+                dom.statusPill.className = "px-2 py-1 rounded-full bg-yellow-100 text-[10px] font-bold text-yellow-700 border border-yellow-200 uppercase";
+            }
+
+            updateCountdowns();
+            updateAlternativeCounts();
+
+            if (todayKey !== lastTimelineDay) {
+                renderTimeline(now);
+                lastTimelineDay = todayKey;
+            }
         }
 
         async function downloadStories() {
